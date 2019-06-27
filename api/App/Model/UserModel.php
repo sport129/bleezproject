@@ -19,4 +19,32 @@ class UserModel extends ConnectionDB {
         $stmt->execute(array(":username" => $username));
         return $stmt->fetch();
     }
+    public function findUserToCreate ($dateToCreateUser) {
+        $stmt = ConnectionDB::prepare(
+            "SELECT * FROM
+                $this->table
+            WHERE
+                username = :username
+            OR  
+                email = :email    "
+        );
+        $stmt->execute(array(":username" => $dateToCreateUser->username, ":email" => $dateToCreateUser->email));
+        return $stmt->fetch();
+    }
+
+    public function createUser ($dateToCreateUser) {
+        $stmt = ConnectionDB::prepare(
+			"INSERT INTO 
+				$this->table (username, password, email) 
+			VALUES 
+				(:username, :password, :email)"
+		);
+		$stmt->execute(
+			array(
+				":username"     => $dateToCreateUser->username, 
+				":password"     => $dateToCreateUser->password, 
+				":email" 	    => $dateToCreateUser->email
+			)
+        ); 
+    }
 }

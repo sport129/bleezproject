@@ -30,7 +30,7 @@ class UserToken extends ConnectionDB {
 			array(
 				":userId" 		    => $userId, 
 				":token" 		    => $token, 
-				":time_expired" 	=> date('Y-m-d H:i:s')
+				":time_expired" 	=> date('Y-m-d H:i:s', strtotime('+1 year', strtotime(date("Y-m-d H:i:s"))))
 			)
         ); 
         
