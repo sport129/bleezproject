@@ -44,4 +44,9 @@ Class ProductModel extends ConnectionDB {
 			)
         );
     }
+    public function getProducts () {
+        $stmt = ConnectionDB::prepare("SELECT * FROM $this->table");
+        $stmt->execute();
+		return $stmt->fetchAll();
+    }
 }

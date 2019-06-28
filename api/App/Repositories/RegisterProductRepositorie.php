@@ -16,6 +16,9 @@ Class RegisterProductRepositorie {
         if (!is_null($request->imagem)) $request->imagem = $this->trateImageToUpload($request->imagem);
         return $this->productModel->updateProduct($request);
     }
+    public function getAllProducts () {
+        return $this->productModel->getProducts();
+    }
     private function trateImageToUpload ($imagem) { 
         return $imagem;
     }

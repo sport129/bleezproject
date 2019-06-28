@@ -39,6 +39,15 @@ Class RegisterNewProductController {
             return $this->jsonResponse->constructResponseJson(400, 400, $e->getMessage());  
         }
     }
+    public function getProducts () {
+        try {
+            $response = $this->registerProductRepositories->getAllProducts();
+            if (empty($response)) throw new Exception("Não Foi Possível Realizar a Consulta");
+            return $this->jsonResponse->constructResponseJson(200, 200, 'Listagem Consultada com Sucesso', $response);
+        } catch (Exception $e) {
+            return $this->jsonResponse->constructResponseJson(400, 400, $e->getMessage()); 
+        }
+    }
     private function validatorProduct ($request) {
         if ($request->nome == '' || $request->preco == '') return true;
         return false;
