@@ -1,0 +1,331 @@
+[
+  {
+    "client_code": "008652593",
+    "company_code": "1",
+    "affiliate_code": "1",
+    "affiliate_name": "Lagoa",
+    "class_code": "23154",
+    "class_name": "PSICO N1A",
+    "discipline_code": "FUN01A",
+    "discipline_name": "FUNDAMENTOS DA PERSONALIDADE",
+    "block_code": "a",
+    "block_name": "bloco a",
+    "lesson_shift_name": "noturno",
+    "room_code": "1",
+    "room_name": "sala 1",
+    "lesson_time_date": "2018-07-26",
+    "lesson_time_start": "18:50",
+    "lesson_time_end": "19:50",
+    "lesson_status_id": "1",
+    "lesson_status_text": "iniciada",
+    "lesson_status_color": "#ccc",
+    "total_presents": "0",
+    "total_absents": "0",
+    "total_addeds": "0",
+    "sended_at": "2018-07-26T01:18:43.741Z"
+  },
+  {
+    "company_code": "1",
+    "affiliate_code": "1",
+    "affiliate_name": "MESSEJANA",
+    "course_type_name": "GRADUAÇÃO",
+    "lesson_number": "44",
+    "lesson_time_date": "15/05/2018",
+    "lesson_time_start": "19:40",
+    "lesson_time_end": "20:40",
+    "lesson_day_number": "3",
+    "lesson_day_name": "TERÇA-FEIRA",
+    "shift_code": "2",
+    "shift_name": "NOTURNO",
+    "class_code": "24310",
+    "class_name": "ADM N7A",
+    "teacher_code": "115906453",
+    "teacher_name": "ERNESTO CEZAR XEREZ DE  CASTRO FILHO",
+    "discipline_code": "ADM0034",
+    "discipline_name": "TÓPICOS ESPECIAIS EM ADMINISTRAÇÃO I",
+    "period_code": "2018.1",
+    "block_name": "B",
+    "room_code": "001",
+    "sended_at": "2018-07-26T01:18:43.741Z",
+    "lesson_status_id": "2",
+    "lesson_status_text": "AULA EM ANDAMENTO",
+    "lesson_status_color": "#1c1cec",
+    "total_presents": "0",
+    "total_absents": "0",
+    "total_addeds": "0"
+  },
+  {
+    "company_code": "1",
+    "affiliate_code": "1",
+    "affiliate_name": "MESSEJANA",
+    "course_type_name": "GRADUAÇÃO",
+    "lesson_number": "44",
+    "lesson_time_date": "15/05/2018",
+    "lesson_time_start": "19:40",
+    "lesson_time_end": "20:40",
+    "lesson_day_number": "3",
+    "lesson_day_name": "TERÇA-FEIRA",
+    "shift_code": "2",
+    "shift_name": "NOTURNO",
+    "class_code": "23900",
+    "class_name": "ADM N4A",
+    "teacher_code": "845986893",
+    "teacher_name": "MICHAEL GANDHI MONTEIRO DOS SANTOS",
+    "discipline_code": "COM0017",
+    "discipline_name": "MATEMÁTICA COMERCIAL E FINANCEIRA",
+    "period_code": "2018.1",
+    "block_name": "A",
+    "room_code": "002",
+    "states": [],
+    "lesson_status_id": 4,
+    "lesson_status_text": "AULA FINALIZADA COM SUCESSO",
+    "lesson_status_color": "green"
+  },
+  {
+    "company_code": "1",
+    "affiliate_code": "1",
+    "affiliate_name": "MESSEJANA",
+    "course_type_name": "GRADUAÇÃO",
+    "lesson_number": "43",
+    "lesson_time_date": "15/05/2018",
+    "lesson_time_start": "18:40",
+    "lesson_time_end": "19:40",
+    "lesson_day_number": "3",
+    "lesson_day_name": "TERÇA-FEIRA",
+    "shift_code": "2",
+    "shift_name": "NOTURNO",
+    "class_code": "23860",
+    "class_name": "ADM N2A",
+    "teacher_code": "859923563",
+    "teacher_name": "DEBORA VARELA MAGALHAES",
+    "discipline_code": "COM0420",
+    "discipline_name": "ECONOMIA DE EMPRESAS",
+    "period_code": "2018.1",
+    "block_name": "E",
+    "room_code": "006",
+    "states": [],
+    "lesson_status_id": 5,
+    "lesson_status_text": "AULA COM OCORRÊNCIA ACADÊMICA",
+    "lesson_status_color": "#520a52"
+  },
+  {
+    "sended_at": "2018-07-29T16:18:43.850Z",
+    "company_code": "1",
+    "affiliate_code": "2",
+    "affiliate_name": "BEZERRA",
+    "time_date": "2018-05-15",
+    "time_start": "13:00",
+    "time_end": "16:50",
+    "qrcode": "client_code=008652593&company_code=1&affiliate_code=2&affiliate_name=BEZERRA&class_code=24570&class_name=ENFER+D10A&discipline_code=COM0017&discipline_name=EST%C3%81GIO+SUPERVISIONADO+II&block_code=A&block_name=BLOCO+A&room_code=002&room_name=SALA+002&lesson_time_date=2018-05-15&lesson_time_start=13%3A00&lesson_time_end=13%3A50&lesson_shift_name=VESPERTINO",
+    "class_code": "24570",
+    "class_name": "ENFER D10A",
+    "discipline_name": "ESTÁGIO SUPERVISIONADO II",
+    "block_code": "A",
+    "block_name": "SALA 002",
+    "room_code": "002",
+    "room_name": "SALA 002",
+    "shift_name": "vespertino",
+    "lessons": [
+      {
+        "all_selected": true,
+        "number": "193",
+        "content_proposed": "CONTEÚDO PREVISTO NÃO CADASTRADO",
+        "content_effectived": "008652593",
+        "time_start": "13:00",
+        "time_end": "13:50",
+        "students": [
+          {
+            "code": "2013205227",
+            "name": "AUZENIR BARBOSA DOS SANTOS",
+            "present": true
+          },
+          {
+            "code": "2013201983",
+            "name": "AVILA BRENDA DE LIMA PEREIRA",
+            "present": true
+          },
+          {
+            "code": "2013203336",
+            "name": "FRANCISCA ALINE DE AQUINO BELO",
+            "present": true
+          },
+          {
+            "code": "2013200290",
+            "name": "FRANCISCA LEONEIDA MOREIRA MATIAS",
+            "present": true
+          },
+          {
+            "code": "2013205111",
+            "name": "FRANCISCO DANIEL RODRIGUES DE MELO",
+            "present": true
+          },
+          {
+            "code": "2013204610",
+            "name": "INACIA MENDES",
+            "present": true
+          },
+          {
+            "code": "2013200243",
+            "name": "JOSE ADALBERTO SOUZA DOS SANTOS",
+            "present": true
+          },
+          {
+            "code": "2014125068",
+            "name": "LAIS MOREIRA SILVA",
+            "present": true
+          },
+          {
+            "code": "2013204491",
+            "name": "MARIA DO SOCORRO ARCANJO GIRAO",
+            "present": true
+          },
+          {
+            "code": "2013204144",
+            "name": "ROBERTA KELLE MENDES FERNANDES",
+            "present": true
+          },
+          {
+            "code": "2013225012",
+            "name": "THALUANA ALVES DE SOUSA",
+            "present": true
+          }
+        ],
+        "students_add": []
+      },
+      {
+        "all_selected": true,
+        "number": "194",
+        "content_proposed": "CONTEÚDO PREVISTO NÃO CADASTRADO",
+        "content_effectived": "008652593",
+        "time_start": "13:50",
+        "time_end": "15:00",
+        "students": [
+          {
+            "code": "2013205227",
+            "name": "AUZENIR BARBOSA DOS SANTOS",
+            "present": true
+          },
+          {
+            "code": "2013201983",
+            "name": "AVILA BRENDA DE LIMA PEREIRA",
+            "present": true
+          },
+          {
+            "code": "2013203336",
+            "name": "FRANCISCA ALINE DE AQUINO BELO",
+            "present": true
+          },
+          {
+            "code": "2013200290",
+            "name": "FRANCISCA LEONEIDA MOREIRA MATIAS",
+            "present": true
+          },
+          {
+            "code": "2013205111",
+            "name": "FRANCISCO DANIEL RODRIGUES DE MELO",
+            "present": true
+          },
+          {
+            "code": "2013204610",
+            "name": "INACIA MENDES",
+            "present": true
+          },
+          {
+            "code": "2013200243",
+            "name": "JOSE ADALBERTO SOUZA DOS SANTOS",
+            "present": true
+          },
+          {
+            "code": "2014125068",
+            "name": "LAIS MOREIRA SILVA",
+            "present": true
+          },
+          {
+            "code": "2013204491",
+            "name": "MARIA DO SOCORRO ARCANJO GIRAO",
+            "present": true
+          },
+          {
+            "code": "2013204144",
+            "name": "ROBERTA KELLE MENDES FERNANDES",
+            "present": true
+          },
+          {
+            "code": "2013225012",
+            "name": "THALUANA ALVES DE SOUSA",
+            "present": true
+          }
+        ],
+        "students_add": []
+      },
+      {
+        "all_selected": true,
+        "number": "195",
+        "content_proposed": "CONTEÚDO PREVISTO NÃO CADASTRADO",
+        "content_effectived": "008652593",
+        "time_start": "15:20",
+        "time_end": "16:50",
+        "students": [
+          {
+            "code": "2013205227",
+            "name": "AUZENIR BARBOSA DOS SANTOS",
+            "present": true
+          },
+          {
+            "code": "2013201983",
+            "name": "AVILA BRENDA DE LIMA PEREIRA",
+            "present": true
+          },
+          {
+            "code": "2013203336",
+            "name": "FRANCISCA ALINE DE AQUINO BELO",
+            "present": true
+          },
+          {
+            "code": "2013200290",
+            "name": "FRANCISCA LEONEIDA MOREIRA MATIAS",
+            "present": true
+          },
+          {
+            "code": "2013205111",
+            "name": "FRANCISCO DANIEL RODRIGUES DE MELO",
+            "present": true
+          },
+          {
+            "code": "2013204610",
+            "name": "INACIA MENDES",
+            "present": true
+          },
+          {
+            "code": "2013200243",
+            "name": "JOSE ADALBERTO SOUZA DOS SANTOS",
+            "present": true
+          },
+          {
+            "code": "2014125068",
+            "name": "LAIS MOREIRA SILVA",
+            "present": true
+          },
+          {
+            "code": "2013204491",
+            "name": "MARIA DO SOCORRO ARCANJO GIRAO",
+            "present": true
+          },
+          {
+            "code": "2013204144",
+            "name": "ROBERTA KELLE MENDES FERNANDES",
+            "present": true
+          },
+          {
+            "code": "2013225012",
+            "name": "THALUANA ALVES DE SOUSA",
+            "present": true
+          }
+        ],
+        "students_add": []
+      }
+    ],
+    "created_start": "2018-07-29T16:18:32.913Z",
+    "qrcode_end": "2018-07-29T16:18:43.850Z"
+  }
+]

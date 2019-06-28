@@ -1,0 +1,16 @@
+client_code=<PROFESSOR_CODIGO>
+&company_code=<COLIGADA_CODIGO>
+&affiliate_code=<FILIAL_CODIGO>
+&affiliate_name=<FILIAL_NOME>
+&class_code=<TURMA_CODIGO>
+&class_name=<TURMA_NOME>
+&discipline_code=<DISCIPLINA_CODIGO>
+&discipline_name=<DISCIPLINA_NOME>
+&block_code=<BLOCO_CODIGO>
+&block_name=<BLOCO_NOME>
+&room_code=<SALA_CODIGO>
+&room_name=<SALA_NOME>
+&lesson_time_date=<AULA_DATA> // YYYY-MM-DD
+&lesson_time_start=<AULA_HORA_INICIO> // HH:II
+&lesson_time_end=<AULA_HORA_FIM> // HH:II
+&lesson_shift_name=<TURNO_NOME>
