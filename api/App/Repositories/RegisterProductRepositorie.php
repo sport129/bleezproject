@@ -19,6 +19,12 @@ Class RegisterProductRepositorie {
     public function getAllProducts () {
         return $this->productModel->getProducts();
     }
+    public function consultProduct ($request) {
+        return $this->productModel->consultProduct($request);
+    }
+    public function deletarProduto ($request) {
+        return $this->productModel->deletarProduto($request);
+    }
     private function trateImageToUpload ($imagem) { 
         return $imagem;
     }

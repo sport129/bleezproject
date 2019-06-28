@@ -7,6 +7,18 @@ const serviceAuth = {
   async getProducts () {
     return this.dispatchRequest('get', `${config.api.url}/getProducts`)
   },
+  async getProduct (payload) {
+    return this.dispatchRequest('post', `${config.api.url}/consultProduct`, payload)
+  },
+  async attProduct (payload) {
+    return this.dispatchRequest('post', `${config.api.url}/updateProduct`, payload)
+  },
+  async deletProduct (payload) {
+    return this.dispatchRequest('post', `${config.api.url}/delProduct`, payload)
+  },
+  async novoProduto (payload) {
+    return this.dispatchRequest('post', `${config.api.url}/registerProduct`, payload)
+  },
   async signOut (payload) {
     return this.dispatchRequest('post', `${config.api.url}/logout`, payload)
   },

@@ -39,7 +39,11 @@ class api {
                         echo $this->registerNewProductController->registerNewProduct($this->json);
                     } else if ($this->uri == "/api/updateProduct") {
                         echo $this->registerNewProductController->updateProduct($this->json);
-                    } else {
+                    } else if ($this->uri == "/api/consultProduct") {
+                        echo $this->registerNewProductController->consultProduct($this->json);
+                    } else if ($this->uri == "/api/delProduct") { 
+                        echo $this->registerNewProductController->deletarProduto($this->json);
+                    }else {
                         throw new Exception("URL INVALIDO");
                     }
                 } else {

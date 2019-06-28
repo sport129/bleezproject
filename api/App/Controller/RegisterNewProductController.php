@@ -48,6 +48,24 @@ Class RegisterNewProductController {
             return $this->jsonResponse->constructResponseJson(400, 400, $e->getMessage()); 
         }
     }
+    public function consultProduct ($request) {
+        try {
+            $response =  $this->registerProductRepositories->consultProduct($request);
+            if (empty($response)) throw new Exception("Não Foi Possível Realizar a Consulta");
+            return $this->jsonResponse->constructResponseJson(200, 200, 'Listagem Consultada com Sucesso', $response);
+        }catch (Exception $e) {
+            return $this->jsonResponse->constructResponseJson(400, 400, $e->getMessage()); 
+        }
+    }
+    public function deletarProduto ($request) {
+        try {
+            $response =  $this->registerProductRepositories->deletarProduto($request);
+            if (empty($response)) throw new Exception("Não Foi Possível Deletar o Produto");
+            return $this->jsonResponse->constructResponseJson(200, 200, 'Produto Apagado Com Sucesso', $response);
+        } catch (Exception $e) {
+            return $this->jsonResponse->constructResponseJson(400, 400, $e->getMessage()); 
+        }
+    }
     private function validatorProduct ($request) {
         if ($request->nome == '' || $request->preco == '') return true;
         return false;

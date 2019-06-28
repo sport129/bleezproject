@@ -49,4 +49,23 @@ Class ProductModel extends ConnectionDB {
         $stmt->execute();
 		return $stmt->fetchAll();
     }
+    public function consultProduct ($product) {
+        $stmt = ConnectionDB::prepare(
+            "SELECT * FROM
+                $this->table
+            WHERE
+                id = :id"
+        );
+        $stmt->execute(array(":id" => $product->id));
+        return $stmt->fetch();
+    }   
+    public function deletarProduto ($produto) {
+        $stmt = ConnectionDB::prepare(
+        "DELETE FROM 
+				$this->table 
+			WHERE 
+				id = :id"
+        );
+        return $stmt->execute(array(":id" => $produto->id)); 
+    }
 }
