@@ -151,7 +151,6 @@
             </v-text-field>
           </v-card-text>
           <v-card-actions>
-            {{imageFile}}
             <v-spacer></v-spacer>
             <v-btn dark color="success" @click="cadastrarProduto()" :loading="btnProcessing">
               Cadastrar Produto
