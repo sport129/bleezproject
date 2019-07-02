@@ -15,18 +15,18 @@
                 <td>{{props.item.nome}}</td>
                 <td>{{props.item.preco}}</td>
                 <td>{{props.item.descricao}}</td>
-                <td>
+                <td class="text-xs-center">
                   <v-btn icon small color="primary" dark>
                     <v-icon>wallpaper</v-icon>
                   </v-btn>
                 </td>
                 <td>{{props.item.created_at}}</td>
-                <td>
+                <td class="text-xs-center">
                   <v-btn icon small color="secondary" dark @click="editProduct(props.item)">
                     <v-icon>settings</v-icon>
                   </v-btn>
                 </td>
-                <td>
+                <td class="text-xs-center">
                   <v-btn icon small color="red" dark @click="openDialogExclude(props.item)">
                     <v-icon>remove_circle</v-icon>
                   </v-btn>
@@ -63,7 +63,7 @@
             <v-text-field
               v-model="productSelected.id"
               label="Id Do Produto"
-              disabled="true"
+              :disabled="disableText"
             >
             </v-text-field>
             <v-text-field
@@ -151,6 +151,7 @@
             </v-text-field>
           </v-card-text>
           <v-card-actions>
+            {{imageFile}}
             <v-spacer></v-spacer>
             <v-btn dark color="success" @click="cadastrarProduto()" :loading="btnProcessing">
               Cadastrar Produto
@@ -188,7 +189,8 @@ export default {
       dialogExcludProduct: false,
       productSelected: [],
       btnProcessing: false,
-      dialogNewProduct: false
+      dialogNewProduct: false,
+      disableText: true
     }
   },
   mounted () {
