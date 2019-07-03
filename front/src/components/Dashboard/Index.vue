@@ -7,7 +7,6 @@
             <v-data-table
               :headers="headers"
               :items="listagemProducts"
-              hide-actions
               class="elevation-1"
             >
               <template slot="items" slot-scope="props">
@@ -50,12 +49,13 @@
       >
         <v-card>
           <v-card-title
-            class="headline grey lighten-2"
+            class="headline lighten-2 white--text"
             primary-title
+            style="background-color: #582EFF !important;"
           >
             Editar Produto
             <v-spacer></v-spacer>
-            <v-btn icon dark color="primary" @click="closeDialogUpdate()">
+            <v-btn icon dark @click="closeDialogUpdate()">
               <v-icon>close</v-icon>
             </v-btn>
           </v-card-title>
@@ -74,6 +74,7 @@
             <v-text-field
               v-model="productSelected.preco"
               label="Preço Do Produto"
+              :rules="[() => verificatorNumberBank() || 'Valor Digitado Errado']"
             >
             </v-text-field>
             <v-text-field
@@ -84,7 +85,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark color="success" @click="atualizarProduto()" :loading="btnProcessing">
+            <v-btn color="success" @click="atualizarProduto()" :loading="btnProcessing" :disabled="disableFormBtn">
               Atualizar
             </v-btn>
           </v-card-actions>
@@ -97,8 +98,9 @@
         persistent
       >
         <v-card-title
-          class="headline grey lighten-2"
+          class="headline lighten-2 white--text"
           primary-title
+          style="background-color: #582EFF !important;"
         >
           Excluir Produto
         </v-card-title>
@@ -110,7 +112,7 @@
             Cancelar
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="error" @click="excluirProduto">
+          <v-btn color="error" @click="excluirProduto" :loading="btnexcluir">
             Excluir
           </v-btn>
         </v-card-actions>
@@ -123,12 +125,13 @@
       >
         <v-card>
           <v-card-title
-            class="headline grey lighten-2"
+            class="headline grey lighten-2 white--text"
             primary-title
+            style="background-color: #582EFF !important;"
           >
             Cadastrar Novo Produto
             <v-spacer></v-spacer>
-            <v-btn icon dark color="primary" @click="prepareComponent">
+            <v-btn icon dark @click="prepareComponent">
               <v-icon>close</v-icon>
             </v-btn>
           </v-card-title>
@@ -142,6 +145,7 @@
             <v-text-field
               v-model="newProduct.preco"
               label="Preço Do Produto"
+              :rules="[() => verificatorNumberBank() || 'Valor Digitado Errado']"
             >
             </v-text-field>
             <v-text-field
@@ -162,7 +166,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark color="success" @click="cadastrarProduto()" :loading="btnProcessing">
+            <v-btn color="success" @click="cadastrarProduto()" :loading="btnProcessing" :disabled="disableFormBtn">
               Cadastrar Produto
             </v-btn>
           </v-card-actions>
@@ -177,22 +181,68 @@
       >
         <v-card>
           <v-card-title
-            class="headline grey lighten-2"
+            class="headline grey lighten-2 white--text"
             primary-title
+            style="background-color: #582EFF !important;"
           >
-            Imagem dos Produto
+            Imagems do Produto
             <v-spacer></v-spacer>
-            <v-btn icon dark color="primary" @click="adicionarImagem()">
+            <v-btn icon dark  @click="adicionarImagem()">
               <v-icon>add</v-icon>
             </v-btn>
-            <v-btn icon dark color="primary" @click="prepareComponent">
+            <v-btn icon dark  @click="prepareComponent">
               <v-icon>close</v-icon>
             </v-btn>
           </v-card-title>
+          <v-container
+            fluid
+            grid-list-xs
+          > 
+            <v-layout row wrap>
+              <v-flex xs12 v-if="imageSelected === ''">
+                <v-card>
+                  <v-flex xs12>
+                    <div style="font-size: 14px;">
+                    <h2><center>NÃO EXISTE IMAGEM CADASTRADAS A ESSE PRODUTO</center></h2>
+                    </div>
+                  </v-flex>
+                </v-card>
+              </v-flex>
+              <v-flex xs12 v-else class="text-xs-center" >
+                <v-container
+                  fluid
+                  grid-list-xs
+                > 
+                <v-layout row wrap>
+                  <v-flex xs4 v-for="img in imageSelected">
+                    <v-card hover>
+                      <img :src="img.linkimg" width="150" @click="zoomimg(img.linkimg)"/>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+                </v-container>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-card>
       </v-dialog>
 
-
+      <v-dialog
+        v-model="zoomImgDialog"
+        width="900"
+      >
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          <v-btn icon dark color="primary" @click="zoomImgDialog = false, imgZoomLink = ''">
+              <v-icon>close</v-icon>
+            </v-btn>
+        </v-card-title>
+        <v-card class="text-xs-center">
+          <img :src="imgZoomLink" width="80%"/>
+        </v-card>
+      </v-dialog>
     </v-layout>                           
   </v-container>
 </template>
@@ -225,7 +275,11 @@ export default {
       productSelected: [],
       btnProcessing: false,
       dialogNewProduct: false,
-      disableText: true
+      disableText: true,
+      imageSelected: [],
+      zoomImgDialog: false,
+      imgZoomLink: '',
+      btnexcluir: false
     }
   },
   mounted () {
@@ -233,10 +287,17 @@ export default {
     this.prepareComponent()
   },
   methods: {
-    addImgae (item) {
-      this.productSelected = item
-      this.modalUploadImagProduct = true
-      console.log(this.productSelected)
+    async addImgae (item) {
+      const response = await this.$serviceAuth.getImages(item)
+      if (response.status === 200) {
+        this.productSelected = item
+        this.imageSelected = response.data.documents
+        this.modalUploadImagProduct = true
+      } else {
+        this.productSelected = item
+        this.imageSelected = ''
+        this.modalUploadImagProduct = true
+      }
     },
     async prepareComponent () {
       this.productSelected = []
@@ -246,6 +307,8 @@ export default {
       this.dialogExcludProduct = false
       this.dialogNewProduct = false
       this.modalUploadImagProduct = false
+      this.imageSelected = []
+      this.btnexcluir = false
       this.newProduct = {
         nome: '',
         preco: '',
@@ -261,11 +324,20 @@ export default {
       }
     },
     async onHandleAddedAttachments () {
-      this.files = this.$refs.attachments.files[0]
-      this.newProduct.imagem.append('file', this.files)
-      this.newProduct.imagem.append('dados', JSON.stringify(this.productSelected))
-      const response = await this.$serviceAuth.upimagem(this.newProduct.imagem)
-      console.log(response)
+      const regex = /image/
+      this.files = this.$refs.attachments.files
+      for (let key in this.files) {
+        if (regex.test(this.files[key].type)) {
+          this.newProduct.imagem.append('file', this.files[key])
+          this.newProduct.imagem.append('dados', JSON.stringify({produto: this.productSelected}))
+          await this.$serviceAuth.upimagem(this.newProduct.imagem)
+          this.newProduct.imagem = new FormData()
+        } else {
+          this.newProduct.imagem = new FormData()
+        }
+      }
+      this.addImgae(this.productSelected)
+      // this.newProduct.imagem.append('dados', JSON.stringify({produto: this.productSelected}))
     },
     async editProduct (produto) {
       const response = await this.$serviceAuth.getProduct(produto)
@@ -298,6 +370,7 @@ export default {
       }
     },
     async excluirProduto () {
+      this.btnexcluir = true
       const response = await this.$serviceAuth.deletProduct(this.productSelected)
       if (response.status === 200) {
         this.$store.dispatch('setToast', { color: 'white', visible: true, content: response.data.message })
@@ -323,19 +396,43 @@ export default {
         this.btnProcessing = true
         this.$store.dispatch('setToast', { color: 'white', visible: true, content: response.data.message })
         setTimeout(() => {
-          this.prepareComponent()
+          this.btnProcessing = false
         }, 1000)
       }
     },
     async onHandleOpenDialogToAddFiles () {
       document.getElementById('fileAttachments').click()
     },
+    verificatorNumberBank () {
+      const regex = /^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/
+      if (regex.test(this.newProduct.preco) || regex.test(this.productSelected.preco)) {
+        return true
+      } else {
+        return false
+      }
+    },
     openDialogExclude (produto) {
       this.dialogExcludProduct = true
       this.productSelected = produto
     },
+    zoomimg (img) {
+      this.imgZoomLink = img
+      this.zoomImgDialog = true
+    },
     closeDialogUpdate () {
       this.prepareComponent()
+    }
+  },
+  computed: {
+    disableFormBtn: function () {
+      if ((this.newProduct.nome !== '' && this.newProduct.preco !== '' && this.newProduct.descricao !== '') || (this.productSelected.nome !== '' && this.productSelected.preco !== '' && this.productSelected.descricao !== '')) {
+        if (!this.verificatorNumberBank()) {
+          return true
+        }
+        return false
+      } else {
+        return true
+      }
     }
   }
 }

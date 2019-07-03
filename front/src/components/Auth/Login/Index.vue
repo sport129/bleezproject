@@ -6,12 +6,11 @@
     >
       <v-card-text>
         <form>
-          <v-flex>
+          <v-flex class="text-xs-center">
             <img
               :src="imgLogo"
               alt="Logo"
-              class="mb-5"
-              width="300"
+              class="mb-3"
             />
           </v-flex>
           <v-flex>
@@ -102,7 +101,7 @@ export default {
   },
   computed: {
     imgLogo () {
-      return '/static/img/logos/logo.png'
+      return '/static/img/scenes/bleez-e-commerce.png'
     }
   }
 }

@@ -11,16 +11,15 @@ Class ProductModel extends ConnectionDB {
     public function insertProduct ($product) {
         $stmt = ConnectionDB::prepare(
 			"INSERT INTO 
-				$this->table (nome, preco, descricao, imagem, created_at) 
+				$this->table (nome, preco, descricao, created_at) 
 			VALUES 
-				(:nome, :preco, :descricao, :imagem, :created_at)"
+				(:nome, :preco, :descricao, :created_at)"
 		);
 		return $stmt->execute(
 			array(
 				":nome"             => $product->nome, 
 				":preco"            => $product->preco, 
                 ":descricao" 	    => $product->descricao,
-                ":imagem"           => $product->imagem,
                 ":created_at"       => date("Y-m-d H:i:s")
 			)
         );
@@ -44,8 +43,23 @@ Class ProductModel extends ConnectionDB {
 			)
         );
     }
+    public function consultImageProduct ($product) {
+        $stmt = ConnectionDB::prepare(
+            "SELECT * FROM 
+                tb_imgproduct
+            WHERE
+                tb_imgproduct.id_produto = :id
+            AND status = 1" 
+        );
+        $stmt->execute(
+            array(
+                ":id" => $product->id
+            )
+        );
+        return $stmt->fetchAll();
+    }
     public function getProducts () {
-        $stmt = ConnectionDB::prepare("SELECT * FROM $this->table");
+        $stmt = ConnectionDB::prepare("SELECT * FROM $this->table WHERE  status = 1 ORDER BY id DESC ");
         $stmt->execute();
 		return $stmt->fetchAll();
     }
@@ -61,11 +75,39 @@ Class ProductModel extends ConnectionDB {
     }   
     public function deletarProduto ($produto) {
         $stmt = ConnectionDB::prepare(
-        "DELETE FROM 
+        "UPDATE  
 				$this->table 
+            SET
+                status = 0
 			WHERE 
 				id = :id"
         );
+        $this->deletImageProduct ($produto);
         return $stmt->execute(array(":id" => $produto->id)); 
+    }
+    public function deletImageProduct ($produto) {
+        $stmt = ConnectionDB::prepare( 
+            "UPDATE 
+                tb_imgproduct
+            SET
+                status = 0
+            WHERE
+                id_produto = :id"
+        );
+        return $stmt->execute(array(":id" => $produto->id)); 
+    }
+    public function insertimage ($id, $linkimg) {
+        $stmt =  ConnectionDB::prepare(
+            "INSERT INTO 
+                tb_imgproduct (id_produto, linkimg)
+            VALUES 
+				(:id_produto, :linkimg)"
+        );
+        return $stmt->execute(
+			array(
+				":id_produto"       => $id, 
+				":linkimg"          => $linkimg,
+			)
+        );
     }
 }

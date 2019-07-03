@@ -23,7 +23,10 @@ const serviceAuth = {
     return this.dispatchRequest('post', `${config.api.url}/logout`, payload)
   },
   async upimagem (payload) {
-    return this.dispatchRequest('post', `${config.api.url}/testeUpload`, payload)
+    return this.dispatchRequest('post', `${config.api.url}/uploadImage`, payload)
+  },
+  async getImages (payload) {
+    return this.dispatchRequest('post', `${config.api.url}/getImages`, payload)
   },
   async dispatchRequest (method, url, payload = {}, headers = {}) {
     try {

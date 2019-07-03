@@ -9,23 +9,32 @@ Class RegisterProductRepositorie {
         $this->productModel = new ProductModel;
     }
     public function registerProduct ($request) {
-        if (!is_null($request->imagem)) $request->imagem = $this->trateImageToUpload($request->imagem);
         return $this->productModel->insertProduct($request);
     }
     public function updateProduct ($request) {
-        if (!is_null($request->imagem)) $request->imagem = $this->trateImageToUpload($request->imagem);
         return $this->productModel->updateProduct($request);
     }
     public function getAllProducts () {
-        return $this->productModel->getProducts();
+        $produtos = $this->productModel->getProducts();
+        for ($i = 0; $i < count($produtos); $i++){ 
+            $produtos[$i]->created_at = date("d/m/Y H:i:s", strtotime($produtos[$i]->created_at));
+        }
+        return $produtos;
     }
     public function consultProduct ($request) {
         return $this->productModel->consultProduct($request);
     }
+    public function getImagesProduct ($request) {
+        $imagens = $this->productModel->consultImageProduct($request);
+        for ($i = 0; $i < count($imagens); $i++){
+            $imagens[$i]->linkimg = 'http://localhost:8080/public/img/'.$imagens[$i]->linkimg;
+        }
+        return $imagens; 
+    }
     public function deletarProduto ($request) {
         return $this->productModel->deletarProduto($request);
     }
-    private function trateImageToUpload ($imagem) { 
-        return $imagem;
+    public function insertimage ($idproduct, $linkimage) {
+        return $this->productModel->insertimage($idproduct, $linkimage);
     }
 }

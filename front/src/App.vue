@@ -4,29 +4,24 @@
   <!-- top --> 
     <v-toolbar
       app
-      dark
+      style="background-color: #582EFF;"
       fixed
       clipped-left
       clipped-right
       v-if="stateAuth.logged"
     >
-      <!-- botão do menu -->
-
-        <v-toolbar-side-icon @click=" stateMenu.visible=true">
-          <v-icon style="color:white !important">reorder</v-icon>
-        </v-toolbar-side-icon>
-
-      <!-- *** --> 
-
       <!-- top info -->
 
-        <img src="/static/img/logos/logo.png" alt="Logo" width="170"> 
+        <img src="/static/img/scenes/bleez-e-commerce.png" alt="Logo" > 
         <v-flex xs1 style="margin-left:20px;"> 
           <v-toolbar-title
-           class="toolbar-title ml-0" >{{ statePage.title }}
+           class="toolbar-title ml-0 white--text" >{{ statePage.title }}
           </v-toolbar-title>
         </v-flex>
         <v-spacer></v-spacer>
+        <v-btn icon @click="onHandleLogoutProcess()" style="color:white" >
+          <v-icon>person_add</v-icon>
+        </v-btn>
         <v-btn icon @click="onHandleLogoutProcess()" style="color:white" >
           <v-icon>exit_to_app</v-icon>
         </v-btn>
@@ -35,51 +30,6 @@
     </v-toolbar>
 
   <!-- *** -->
-
-  <!--  MENU -->
-    <v-navigation-drawer
-      fixed
-      temporary
-      v-model="stateMenu.visible"
-      v-if="stateAuth.logged"
-      class="bar-options"
-      style="color:white; background:rgba(0,0,0,0.4)" 
-      dark
-    >
-     
-      <template>
-        
-         <!-- PERFIL MENU -->
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-avatar>
-              <img src="/static/img/avatar/troll.png">
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>{{stateAuth.client.name}}</v-list-tile-title>
-              <v-list-tile-title style="font-size:8pt; margin-top:-5px;">{{stateAuth.client.email}}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      <!-- *** -->
-
-        <v-list style="color:white">
-          <template v-for="item in stateMenu.items">
-            <v-divider v-if="item.divider" v-bind:inset="item.inset" :key="item.id"></v-divider>
-            <v-list-tile v-else @click.stop="redirectTo(item)" :key="item.id" :class="item.selected?'menu-selected':''">
-              <v-list-tile-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-         
-        </v-list>
-      </template>
-    </v-navigation-drawer>
-    <!-- FIM MENU -->
 
     <!-- SE LOGADO  -->
     <v-content v-if="stateAuth.logged">
@@ -157,17 +107,6 @@
         stage: 0,
         dialog: false,
         processing: false
-      },
-      stateMenu: {
-        visible: false,
-        processing: true,
-        items: [
-          { id: 1, selected: true, icon: 'insert_chart', title: 'Dashboard', href: '/index' },
-          //  { id: 2, selected: false, icon: 'perm_identity', title: 'Novo usuário', href: '/cadastros' },
-          //  { id: 3, selected: false, icon: 'build', title: 'Limpar erros', href: '/dashboard' },
-          { id: 3, selected: false, icon: 'error', title: 'Problem Report', href: '/reports' },
-          { divider: true, inset: false }
-        ]
       }
     }),
     methods: {
@@ -192,24 +131,8 @@
         }
         if (this.logout.stage === 1) {
           this.logout.processing = true
-          const response = await this.$serviceAuth.signOut()
-          if (response.status === 200) {
-            await this.sleep(1000)
-            this.logout.processing = false
-            this.openToast({ content: response.data.message })
-            this.$store.dispatch('userSignOut')
-            this.$router.push('/')
-            this.logout = {
-              stage: 0,
-              dialog: false,
-              processing: false
-            }
-          }
-          if (response.status > 200) {
-            await this.sleep(1000)
-            this.logout.processing = false
-            this.openToast({ content: response.data.message })
-          }
+          this.$store.dispatch('userSignOut')
+          this.$router.push('/')
         }
       },
       openToast ({ content }) {

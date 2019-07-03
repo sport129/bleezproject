@@ -19,14 +19,15 @@ class LoginController {
     public function onSingIn ($request) {
         try {
             if ($this->validatorLogin ($request)) throw new Exception("Dados Invalidos");
-
+            
             $findUser = $this->userModel->findUser($request->username);
             
             if (empty($findUser)) throw new Exception("Usuário Inválido");
+            
             if (!password_verify($request->password, $findUser->password))  throw new Exception("Senha Inválida");
-        
+            
             $tokenUser = $this->userToken->findTokenUser($findUser->id);
-    
+            
             if (empty($tokenUser)) $tokenUser = $this->createUserToken($findUser);
             
             $datatoReturn = array(
