@@ -22,6 +22,9 @@ const serviceAuth = {
   async signOut (payload) {
     return this.dispatchRequest('post', `${config.api.url}/logout`, payload)
   },
+  async upimagem (payload) {
+    return this.dispatchRequest('post', `${config.api.url}/testeUpload`, payload)
+  },
   async dispatchRequest (method, url, payload = {}, headers = {}) {
     try {
       const response = await axios[method](url, payload)

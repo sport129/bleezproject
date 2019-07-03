@@ -5,7 +5,10 @@ const config = {
     url: 'http://localhost:8080/api',
     key: '-',
     secret: '-',
-    token: btoa(`-:`)
+    token: btoa(`-:`),
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   },
   app: {
     url: 'http://127.0.0.1:8081',

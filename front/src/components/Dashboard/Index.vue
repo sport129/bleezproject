@@ -149,6 +149,15 @@
               label="Descrição Do Produto"
             >
             </v-text-field>
+            <div>
+              <input 
+                multiple
+                id="fileAttachments"
+                ref="attachments"
+                type="file" 
+                @change="onHandleAddedAttachments()" 
+              >
+            </div>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -158,6 +167,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
 
     </v-layout>                           
   </v-container>
@@ -182,14 +192,16 @@ export default {
         nome: '',
         preco: '',
         descricao: '',
-        imagem: ''
+        imagem: new FormData()
       },
+      files: '',
       modalEditProduct: false,
       dialogExcludProduct: false,
       productSelected: [],
       btnProcessing: false,
       dialogNewProduct: false,
-      disableText: true
+      disableText: true,
+      postFormData: new FormData()
     }
   },
   mounted () {
@@ -208,7 +220,7 @@ export default {
         nome: '',
         preco: '',
         descricao: '',
-        imagem: ''
+        imagem: new FormData()
       }
       const response = await this.$serviceAuth.getProducts()
       if (response.status === 200) {
@@ -217,6 +229,12 @@ export default {
       } else {
         this.$store.dispatch('setToast', { color: 'white', visible: true, content: response.data.message })
       }
+    },
+    async onHandleAddedAttachments () {
+      this.files = this.$refs.attachments.files[0]
+      this.newProduct.imagem.append('file', this.files)
+      const response = await this.$serviceAuth.upimagem(this.newProduct.imagem)
+      console.log(response)
     },
     async editProduct (produto) {
       const response = await this.$serviceAuth.getProduct(produto)
@@ -274,6 +292,9 @@ export default {
           this.prepareComponent()
         }, 1000)
       }
+    },
+    async onHandleOpenDialogToAddFiles () {
+      document.getElementById('fileAttachments').click()
     },
     openDialogExclude (produto) {
       this.dialogExcludProduct = true

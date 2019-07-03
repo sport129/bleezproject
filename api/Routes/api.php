@@ -43,6 +43,11 @@ class api {
                         echo $this->registerNewProductController->consultProduct($this->json);
                     } else if ($this->uri == "/api/delProduct") { 
                         echo $this->registerNewProductController->deletarProduto($this->json);
+                    } else if ($this->uri == "/api/testeUpload") {
+                        header('Access-Control-Allow-Origin: *');  
+                        print_r($_FILES['file']['name']);
+                        print_r($this->json);
+                        die();
                     }else {
                         throw new Exception("URL INVALIDO");
                     }
