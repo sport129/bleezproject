@@ -44,10 +44,8 @@ class api {
                     } else if ($this->uri == "/api/delProduct") { 
                         echo $this->registerNewProductController->deletarProduto($this->json);
                     } else if ($this->uri == "/api/testeUpload") {
-                        header('Access-Control-Allow-Origin: *');  
-                        print_r($_FILES['file']['name']);
-                        print_r($this->json);
-                        die();
+                        header('Access-Control-Allow-Origin: *');
+                        echo $this->registerNewProductController->inputImage($_FILES["file"]["tmp_name"], "public/img/".$_FILES['file']['name'], $_REQUEST["dados"]);
                     }else {
                         throw new Exception("URL INVALIDO");
                     }

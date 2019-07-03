@@ -11,6 +11,11 @@ Class RegisterNewProductController {
         $this->jsonResponse                  = new jsonResponse;
         $this->registerProductRepositories   = new RegisterProductRepositorie;
     }
+    public function inputImage ($temp, $localstorage, $request) {
+        $request = (object) $request;
+        print_r($request->scalar);
+        die();
+    }
     public function registerNewProduct ($request) {
         try {
             $validador = $this->validatorProduct($request);

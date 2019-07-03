@@ -16,7 +16,7 @@
                 <td>{{props.item.preco}}</td>
                 <td>{{props.item.descricao}}</td>
                 <td class="text-xs-center">
-                  <v-btn icon small color="primary" dark>
+                  <v-btn icon small color="primary" dark @click="addImgae(props.item)">
                     <v-icon>wallpaper</v-icon>
                   </v-btn>
                 </td>
@@ -152,6 +152,7 @@
             <div>
               <input 
                 multiple
+                hidden
                 id="fileAttachments"
                 ref="attachments"
                 type="file" 
@@ -165,6 +166,29 @@
               Cadastrar Produto
             </v-btn>
           </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+
+      <v-dialog 
+        v-model="modalUploadImagProduct"
+        width="600"
+        persistent
+      >
+        <v-card>
+          <v-card-title
+            class="headline grey lighten-2"
+            primary-title
+          >
+            Imagem dos Produto
+            <v-spacer></v-spacer>
+            <v-btn icon dark color="primary" @click="adicionarImagem()">
+              <v-icon>add</v-icon>
+            </v-btn>
+            <v-btn icon dark color="primary" @click="prepareComponent">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-card-title>
         </v-card>
       </v-dialog>
 
@@ -188,6 +212,7 @@ export default {
         {text: 'Editar Produto', align: 'center', value: 'edit', sortable: false},
         {text: 'Excluir Produto', align: 'center', value: 'excluir', sortable: false}
       ],
+      modalUploadImagProduct: false,
       newProduct: {
         nome: '',
         preco: '',
@@ -200,8 +225,7 @@ export default {
       productSelected: [],
       btnProcessing: false,
       dialogNewProduct: false,
-      disableText: true,
-      postFormData: new FormData()
+      disableText: true
     }
   },
   mounted () {
@@ -209,6 +233,11 @@ export default {
     this.prepareComponent()
   },
   methods: {
+    addImgae (item) {
+      this.productSelected = item
+      this.modalUploadImagProduct = true
+      console.log(this.productSelected)
+    },
     async prepareComponent () {
       this.productSelected = []
       this.modalEditProduct = false
@@ -216,6 +245,7 @@ export default {
       this.btnProcessing = false
       this.dialogExcludProduct = false
       this.dialogNewProduct = false
+      this.modalUploadImagProduct = false
       this.newProduct = {
         nome: '',
         preco: '',
@@ -233,6 +263,7 @@ export default {
     async onHandleAddedAttachments () {
       this.files = this.$refs.attachments.files[0]
       this.newProduct.imagem.append('file', this.files)
+      this.newProduct.imagem.append('dados', JSON.stringify(this.productSelected))
       const response = await this.$serviceAuth.upimagem(this.newProduct.imagem)
       console.log(response)
     },
@@ -246,6 +277,9 @@ export default {
         this.modalEditProduct = false
         this.$store.dispatch('setToast', { color: 'white', visible: true, content: response.data.message })
       }
+    },
+    async adicionarImagem () {
+      document.getElementById('fileAttachments').click()
     },
     async atualizarProduto () {
       const response = await this.$serviceAuth.attProduct(this.productSelected)
