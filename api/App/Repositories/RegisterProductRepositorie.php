@@ -27,7 +27,7 @@ Class RegisterProductRepositorie {
     public function getImagesProduct ($request) {
         $imagens = $this->productModel->consultImageProduct($request);
         for ($i = 0; $i < count($imagens); $i++){
-            $imagens[$i]->linkimg = 'http://localhost:8080/public/img/'.$imagens[$i]->linkimg;
+            $imagens[$i]->linkimg = 'http://'.$_SERVER['HTTP_HOST'].'/public/img/'.$imagens[$i]->linkimg;
         }
         return $imagens; 
     }
