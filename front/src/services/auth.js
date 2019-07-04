@@ -28,6 +28,9 @@ const serviceAuth = {
   async getImages (payload) {
     return this.dispatchRequest('post', `${config.api.url}/getImages`, payload)
   },
+  async registerUser (payload) {
+    return this.dispatchRequest('post', `${config.api.url}/registerUser`, payload)
+  },
   async dispatchRequest (method, url, payload = {}, headers = {}) {
     try {
       const response = await axios[method](url, payload)

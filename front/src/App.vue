@@ -19,7 +19,7 @@
           </v-toolbar-title>
         </v-flex>
         <v-spacer></v-spacer>
-        <v-btn icon @click="onHandleLogoutProcess()" style="color:white" >
+        <v-btn icon @click="registerUserDialog = true" style="color:white" >
           <v-icon>person_add</v-icon>
         </v-btn>
         <v-btn icon @click="onHandleLogoutProcess()" style="color:white" >
@@ -46,6 +46,64 @@
     <!--  DIALOG PARA LOGOUT-->
     <template v-if="stateAuth.logged">
       <div class="text-xs-center">
+        <v-dialog
+          v-model="registerUserDialog"
+          width="500"
+          persistent
+        > 
+          <v-card>
+            <v-card-title
+              class="headline lighten-2 white--text"
+              primary-title
+              style="background-color: #582EFF !important;"
+            >
+              Cadastrar Usuário
+              <v-spacer></v-spacer>
+              <v-btn icon dark @click="closeDialogRegisterUser()">
+                <v-icon>close</v-icon>
+              </v-btn>
+            </v-card-title>
+            <v-card-text>
+              <v-text-field
+                v-model="payloadRegisterUser.username"
+                label="Username"
+              >
+              </v-text-field>
+              <v-text-field
+                v-model="payloadRegisterUser.password"
+                label="Senha"
+                :rules="[() => verifyPass() || 'Senha deve conter minimo 6 digitos']"
+                :type="show1 ? 'text' : 'password'"
+              ></v-text-field>
+              <v-text-field
+                v-model="confirmpass"
+                :rules="[() => verifyPasswordEqual() || 'Senhas Não Conferem']"
+                label="Confirmar Senha"
+                :type="show1 ? 'text' : 'password'"
+              >
+              </v-text-field>
+              <v-text-field
+                :rules="[() => validateEmail() || 'Digite um Email valido']"
+                v-model="payloadRegisterUser.email"
+                label="E-mail"
+              >
+              </v-text-field>
+              <v-text-field
+                v-model="confirmemail"
+                label="Confirmar E-mail"
+                :rules="[() => verifyemailequal() || 'E-mails não conferem']"
+              >
+              </v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="success" @click="onHandleRegisterProcess()" :loading="btnProcessing" :disabled="disableFormBtn">
+                Cadastrar Usuario
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        
         <v-dialog
           v-model="logout.dialog"
           width="500"
@@ -107,12 +165,72 @@
         stage: 0,
         dialog: false,
         processing: false
-      }
+      },
+      registerUserDialog: false,
+      payloadRegisterUser: {
+        username: '',
+        password: '',
+        email: ''
+      },
+      confirmemail: '',
+      confirmpass: '',
+      btnProcessing: false
     }),
     methods: {
       closeDialog () {
         this.dialog = false
         this.$store.dispatch('setToast', { color: 'white', visible: true, content: 'Usuário cadastrado com sucesso' })
+      },
+      closeDialogRegisterUser () {
+        this.payloadRegisterUser = {
+          username: '',
+          password: '',
+          email: ''
+        }
+        this.confirmemail = ''
+        this.confirmpass = ''
+        this.btnProcessing = false
+        this.registerUserDialog = false
+      },
+      verifyemailequal () {
+        if (this.payloadRegisterUser.email !== this.confirmemail) {
+          return false
+        } else {
+          return true
+        }
+      },
+      verifyPasswordEqual () {
+        if (this.payloadRegisterUser.password !== this.confirmpass) {
+          return false
+        } else {
+          return true
+        }
+      },
+      verifyPass () {
+        if (this.payloadRegisterUser.password.length < 6) {
+          return false
+        } else {
+          return true
+        }
+      },
+      validateEmail () {
+        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if (regex.test(String(this.payloadRegisterUser.email).toLowerCase())) {
+          return true
+        } else {
+          return false
+        }
+      },
+      async onHandleRegisterProcess () {
+        this.btnProcessing = true
+        const response = await this.$serviceAuth.registerUser(this.payloadRegisterUser)
+        if (response.status === 200) {
+          this.$store.dispatch('setToast', { color: 'white', visible: true, content: response.data.message })
+          this.closeDialogRegisterUser()
+        } else {
+          this.$store.dispatch('setToast', { color: 'white', visible: true, content: response.data.message })
+          this.closeDialogRegisterUser()
+        }
       },
       async redirectTo (item) {
         this.$router.push(item.href)
@@ -133,6 +251,9 @@
           this.logout.processing = true
           this.$store.dispatch('userSignOut')
           this.$router.push('/')
+          this.logout.processing = false
+          this.logout.stage = 0
+          this.logout.dialog = false
         }
       },
       openToast ({ content }) {
@@ -148,6 +269,25 @@
       },
       statePage () {
         return { title: this.$route.meta.title }
+      },
+      disableFormBtn: function () {
+        if (this.payloadRegisterUser.username !== '' && this.payloadRegisterUser.password !== '' && this.payloadRegisterUser.email !== '') {
+          if (!this.validateEmail()) {
+            return true
+          }
+          if (!this.verifyPass()) {
+            return true
+          }
+          if (!this.verifyPasswordEqual()) {
+            return true
+          }
+          if (!this.verifyemailequal()) {
+            return true
+          }
+          return false
+        } else {
+          return true
+        }
       }
     }
   }

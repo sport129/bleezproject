@@ -105,7 +105,7 @@
           Excluir Produto
         </v-card-title>
         <v-card-text class="text-xs-center" style="background-color: white;">
-          Você Tem Certeza que Quer Excluir Esse Produto?
+          Você tem certeza que deseja excluir esse produto?
         </v-card-text>
         <v-card-actions style="background-color: white;"> 
           <v-btn color="primary" @click="prepareComponent">
@@ -185,7 +185,7 @@
             primary-title
             style="background-color: #582EFF !important;"
           >
-            Imagems do Produto
+            Imagens do Produto
             <v-spacer></v-spacer>
             <v-btn icon dark  @click="adicionarImagem()">
               <v-icon>add</v-icon>
@@ -214,7 +214,7 @@
                   grid-list-xs
                 > 
                 <v-layout row wrap>
-                  <v-flex xs4 v-for="img in imageSelected">
+                  <v-flex xs4 v-for="img in imageSelected" v-bind:key="img.id">
                     <v-card hover>
                       <img :src="img.linkimg" width="150" @click="zoomimg(img.linkimg)"/>
                     </v-card>

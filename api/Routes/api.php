@@ -32,8 +32,6 @@ class api {
                 if ($this->uri == "/api/login") {
                     $dadosUser = $this->loginController->onSingIn($this->json);
                     echo $dadosUser;
-                } else if ($this->uri == "/api/registerUser") {
-                    echo $this->registerController->registerUser($this->json);
                 } else if ($this->middlewareroute()) {
                     if ($this->uri == "/api/registerProduct"){
                         echo $this->registerNewProductController->registerNewProduct($this->json);
@@ -47,7 +45,9 @@ class api {
                         echo $this->registerNewProductController->inputImage($_FILES["file"]["tmp_name"], $_FILES['file']['name'], (object) $_REQUEST["dados"]);
                     } else if ($this->uri == "/api/getImages") {
                         echo $this->registerNewProductController->getImagesProduct($this->json);
-                    }else {
+                    } else if ($this->uri == "/api/registerUser") {
+                        echo $this->registerController->registerUser($this->json);
+                    } else {
                         throw new Exception("URL INVALIDO");
                     }
                 } else {
